@@ -1,0 +1,55 @@
+name: 'git-bounty CI/CD Escrow Engine'
+description: 'Automate verification test suites and on-chain Gibwork Solana escrow settlements upon PR merge'
+author: 'Blackwrld04'
+
+inputs:
+  action:
+    description: 'Operation to perform (verify | settle)'
+    required: true
+    default: 'verify'
+  task_id:
+    description: 'Gibwork Task ID'
+    required: false
+  pr_number:
+    description: 'GitHub Pull Request Number'
+    required: false
+    default: ${{ github.event.pull_request.number }}
+  test_command:
+    description: 'Test command to execute for verification'
+    required: false
+    default: 'npm test'
+  solana_private_key:
+    description: 'Solana keypair private key for on-chain settlement'
+    required: false
+  network:
+    description: 'Gibwork network environment (stage | production)'
+    required: false
+    default: 'production'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+
+    - name: Install git-bounty
+      shell: bash
+      run: |
+        npm install --global git-bounty
+
+    - name: Run Verification or Settlement
+      shell: bash
+      env:
+        SOLANA_PRIVATE_KEY: ${{ inputs.solana_private_key }}
+        GIBWORK_NETWORK: ${{ inputs.network }}
+        GITHUB_TOKEN: ${{ github.token }}
+      run: |
+        if [ "${{ inputs.action }}" = "verify" ]; then
+          echo "⚡ Running git-bounty test verification..."
+          git-bounty test --cmd "${{ inputs.test_command }}"
+        elif [ "${{ inputs.action }}" = "settle" ]; then
+          echo "💰 Settling Gibwork Solana Escrow on PR Merge..."
+          git-bounty settle "${{ inputs.pr_number }}" --yes
+        fi

@@ -1,0 +1,145 @@
+import { z } from 'zod';
+export declare const BountyRecordSchema: z.ZodObject<{
+    taskId: z.ZodString;
+    issueNumber: z.ZodOptional<z.ZodNumber>;
+    title: z.ZodString;
+    rewardAmount: z.ZodString;
+    tokenMint: z.ZodString;
+    status: z.ZodEnum<["open", "in_progress", "submitted", "completed", "refunded"]>;
+    createdAt: z.ZodString;
+    claimedBy: z.ZodOptional<z.ZodString>;
+    branchName: z.ZodOptional<z.ZodString>;
+    submissionId: z.ZodOptional<z.ZodString>;
+    escrowAddress: z.ZodOptional<z.ZodString>;
+    prNumber: z.ZodOptional<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    taskId: string;
+    title: string;
+    rewardAmount: string;
+    tokenMint: string;
+    status: "open" | "in_progress" | "submitted" | "completed" | "refunded";
+    createdAt: string;
+    issueNumber?: number | undefined;
+    claimedBy?: string | undefined;
+    branchName?: string | undefined;
+    submissionId?: string | undefined;
+    escrowAddress?: string | undefined;
+    prNumber?: number | undefined;
+}, {
+    taskId: string;
+    title: string;
+    rewardAmount: string;
+    tokenMint: string;
+    status: "open" | "in_progress" | "submitted" | "completed" | "refunded";
+    createdAt: string;
+    issueNumber?: number | undefined;
+    claimedBy?: string | undefined;
+    branchName?: string | undefined;
+    submissionId?: string | undefined;
+    escrowAddress?: string | undefined;
+    prNumber?: number | undefined;
+}>;
+export type BountyRecord = z.infer<typeof BountyRecordSchema>;
+export declare const GitBountyConfigSchema: z.ZodObject<{
+    version: z.ZodLiteral<"1">;
+    repo: z.ZodOptional<z.ZodString>;
+    network: z.ZodDefault<z.ZodEnum<["stage", "production"]>>;
+    apiUrl: z.ZodOptional<z.ZodString>;
+    defaultToken: z.ZodDefault<z.ZodString>;
+    defaultTokenSymbol: z.ZodDefault<z.ZodString>;
+    testCommand: z.ZodDefault<z.ZodString>;
+    keypairPath: z.ZodOptional<z.ZodString>;
+    bounties: z.ZodDefault<z.ZodRecord<z.ZodString, z.ZodObject<{
+        taskId: z.ZodString;
+        issueNumber: z.ZodOptional<z.ZodNumber>;
+        title: z.ZodString;
+        rewardAmount: z.ZodString;
+        tokenMint: z.ZodString;
+        status: z.ZodEnum<["open", "in_progress", "submitted", "completed", "refunded"]>;
+        createdAt: z.ZodString;
+        claimedBy: z.ZodOptional<z.ZodString>;
+        branchName: z.ZodOptional<z.ZodString>;
+        submissionId: z.ZodOptional<z.ZodString>;
+        escrowAddress: z.ZodOptional<z.ZodString>;
+        prNumber: z.ZodOptional<z.ZodNumber>;
+    }, "strip", z.ZodTypeAny, {
+        taskId: string;
+        title: string;
+        rewardAmount: string;
+        tokenMint: string;
+        status: "open" | "in_progress" | "submitted" | "completed" | "refunded";
+        createdAt: string;
+        issueNumber?: number | undefined;
+        claimedBy?: string | undefined;
+        branchName?: string | undefined;
+        submissionId?: string | undefined;
+        escrowAddress?: string | undefined;
+        prNumber?: number | undefined;
+    }, {
+        taskId: string;
+        title: string;
+        rewardAmount: string;
+        tokenMint: string;
+        status: "open" | "in_progress" | "submitted" | "completed" | "refunded";
+        createdAt: string;
+        issueNumber?: number | undefined;
+        claimedBy?: string | undefined;
+        branchName?: string | undefined;
+        submissionId?: string | undefined;
+        escrowAddress?: string | undefined;
+        prNumber?: number | undefined;
+    }>>>;
+}, "strip", z.ZodTypeAny, {
+    version: "1";
+    network: "stage" | "production";
+    defaultToken: string;
+    defaultTokenSymbol: string;
+    testCommand: string;
+    bounties: Record<string, {
+        taskId: string;
+        title: string;
+        rewardAmount: string;
+        tokenMint: string;
+        status: "open" | "in_progress" | "submitted" | "completed" | "refunded";
+        createdAt: string;
+        issueNumber?: number | undefined;
+        claimedBy?: string | undefined;
+        branchName?: string | undefined;
+        submissionId?: string | undefined;
+        escrowAddress?: string | undefined;
+        prNumber?: number | undefined;
+    }>;
+    repo?: string | undefined;
+    apiUrl?: string | undefined;
+    keypairPath?: string | undefined;
+}, {
+    version: "1";
+    repo?: string | undefined;
+    network?: "stage" | "production" | undefined;
+    apiUrl?: string | undefined;
+    defaultToken?: string | undefined;
+    defaultTokenSymbol?: string | undefined;
+    testCommand?: string | undefined;
+    keypairPath?: string | undefined;
+    bounties?: Record<string, {
+        taskId: string;
+        title: string;
+        rewardAmount: string;
+        tokenMint: string;
+        status: "open" | "in_progress" | "submitted" | "completed" | "refunded";
+        createdAt: string;
+        issueNumber?: number | undefined;
+        claimedBy?: string | undefined;
+        branchName?: string | undefined;
+        submissionId?: string | undefined;
+        escrowAddress?: string | undefined;
+        prNumber?: number | undefined;
+    }> | undefined;
+}>;
+export type GitBountyConfig = z.infer<typeof GitBountyConfigSchema>;
+export declare const KNOWN_TOKENS: Record<string, {
+    symbol: string;
+    mint: string;
+    decimals: number;
+}>;
+//# sourceMappingURL=config.d.ts.map

@@ -1,0 +1,62 @@
+{
+  "name": "git-bounty",
+  "version": "0.1.0",
+  "description": "Native Git CLI extension, GitHub Actions CI engine, and terminal dashboard connecting Git repositories to the Gibwork Solana escrow protocol.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "git-bounty": "./dist/bin/git-bounty.js"
+  },
+  "files": [
+    "dist",
+    "action.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/bin/git-bounty.ts",
+    "start": "node dist/bin/git-bounty.js",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "gibwork",
+    "git",
+    "git-extension",
+    "bounty",
+    "solana",
+    "escrow",
+    "github-actions",
+    "cli",
+    "terminal",
+    "tui",
+    "mcp"
+  ],
+  "author": "Blackwrld04",
+  "license": "MIT",
+  "dependencies": {
+    "@gibwork/sdk": "^0.2.0",
+    "@solana/web3.js": "^1.99.0",
+    "boxen": "^8.0.1",
+    "chalk": "^5.4.1",
+    "cli-table3": "^0.6.5",
+    "commander": "^13.1.0",
+    "dotenv": "^16.4.7",
+    "ink": "^5.1.0",
+    "ora": "^8.1.1",
+    "prompts": "^2.4.2",
+    "react": "^18.3.1",
+    "simple-git": "^3.27.0",
+    "uuid": "^11.0.5",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@types/prompts": "^2.4.9",
+    "@types/react": "^18.3.18",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  }
+}
