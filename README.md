@@ -150,23 +150,33 @@ git bounty browse --min-reward 20 --tag TypeScript
 ```
 Outputs a clean table with Task IDs, rewards, tokens, and requirement tags. Supports `--json` for scripting.
 
-#### 2. Claim a Bounty
+#### 2. Inspect Full Details & Spec
+```bash
+git bounty show <taskId-or-issue>
+# or
+git bounty info <taskId>
+```
+Displays complete task description, requirements, sponsor profile, deadline, submission counts, and reward breakdown in rich terminal markdown.
+
+#### 3. Claim a Bounty
 ```bash
 git bounty claim 42
 # or
 git bounty claim <taskId>
 ```
-* Automatically creates and switches to branch: `bounty/issue-42-slug`.
-* Scaffolds `.bounty/SPEC.md` containing acceptance criteria and deliverable checklist.
+* Fetches comprehensive requirements from Gibwork API.
+* Automatically cuts dedicated branch: `bounty/task-<taskId>` or `bounty/issue-42-slug`.
+* Scaffolds `.bounty/SPEC.md` containing full instructions, rules, and acceptance checklist.
+* Prints terminal task summary banner and instructions preview.
 
-#### 3. Run Verification Tests
+#### 4. Run Verification Tests
 ```bash
 git bounty test
 ```
 * Executes the repository's test command (e.g. `npm test`, `cargo test`).
 * Verifies zero test regressions before submission.
 
-#### 4. Submit Proof of Work
+#### 5. Submit Proof of Work
 ```bash
 git bounty submit --pr https://github.com/owner/repo/pull/15
 ```

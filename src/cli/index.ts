@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { runInit } from './init.js';
 import { runPost } from './post.js';
 import { runBrowse } from './browse.js';
+import { runShow } from './show.js';
 import { runClaim } from './claim.js';
 import { runTest } from './test.js';
 import { runSubmit } from './submit.js';
@@ -51,6 +52,13 @@ export function createProgram(): Command {
     .option('--limit <limit>', 'Page size limit', '15')
     .option('--json', 'Output results as JSON')
     .action(runBrowse);
+
+  // show / info
+  program
+    .command('show <identifier>')
+    .alias('info')
+    .description('Inspect complete details and requirements of a Gibwork bounty or issue')
+    .action(runShow);
 
   // claim
   program
