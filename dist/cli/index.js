@@ -38,6 +38,7 @@ export function createProgram() {
     program
         .command('browse')
         .description('Contributor: Discover active bounties across Gibwork')
+        .option('--network <network>', 'Gibwork environment (stage | production)')
         .option('--min-reward <num>', 'Minimum reward amount')
         .option('--tag <tag>', 'Filter by tag')
         .option('--token <symbol>', 'Filter by token')

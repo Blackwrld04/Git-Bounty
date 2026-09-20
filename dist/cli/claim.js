@@ -23,10 +23,10 @@ export async function runClaim(identifier) {
         let taskId = record?.taskId || '';
         let issueNumber = record?.issueNumber;
         const gibwork = new GibworkService(undefined, config.network === 'production');
-        // If identifier is a pure number, try GitHub issue lookup if not in local records
-        const numericIssue = parseInt(identifier, 10);
-        if (!record && !isNaN(numericIssue)) {
-            issueNumber = numericIssue;
+        // If identifier is a pure number (no hyphens or hex characters), try GitHub issue lookup
+        const isPureDigits = /^\d+$/.test(identifier.trim());
+        if (!record && isPureDigits) {
+            issueNumber = parseInt(identifier.trim(), 10);
             const repoSlug = config.repo || (await git.getGitHubRepoSlug()) || undefined;
             const gh = new GitHubService(repoSlug);
             try {
@@ -41,7 +41,17 @@ export async function runClaim(identifier) {
             try {
                 const taskDetails = await gibwork.getTask(taskId);
                 title = taskDetails.title || 'Gibwork Bounty';
-                reward = taskDetails.payment?.amount || taskDetails.asset?.amount || '0';
+                if (taskDetails.health?.metrics?.bountyUsd) {
+                    reward = String(taskDetails.health.metrics.bountyUsd);
+                }
+                else if (taskDetails.asset?.amount) {
+                    const dec = taskDetails.asset?.decimals ?? 6;
+                    const calc = Number(taskDetails.asset.amount) / Math.pow(10, dec);
+                    reward = calc % 1 === 0 ? calc.toString() : calc.toFixed(2);
+                }
+                else if (taskDetails.payment?.amount) {
+                    reward = String(taskDetails.payment.amount);
+                }
             }
             catch (err) {
                 spinner.fail(`Could not find task on Gibwork: ${err.message}`);

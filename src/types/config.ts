@@ -20,7 +20,7 @@ export type BountyRecord = z.infer<typeof BountyRecordSchema>;
 export const GitBountyConfigSchema = z.object({
   version: z.literal('1'),
   repo: z.string().optional(), // e.g. "owner/repo"
-  network: z.enum(['stage', 'production']).default('stage'),
+  network: z.enum(['stage', 'production']).default('production'),
   apiUrl: z.string().optional(),
   defaultToken: z.string().default('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'), // Default USDC
   defaultTokenSymbol: z.string().default('USDC'),

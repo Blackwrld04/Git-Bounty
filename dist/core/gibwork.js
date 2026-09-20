@@ -23,6 +23,7 @@ export class GibworkService {
                 this.client = createGibworkClient({
                     privateKey: resolvedKey,
                     production: this.isProduction,
+                    timeoutMs: 30000,
                 });
                 this.hasSigningKey = true;
             }
@@ -55,6 +56,7 @@ export class GibworkService {
             this.client = createGibworkClient({
                 privateKey: sessionKey,
                 production: this.isProduction,
+                timeoutMs: 30000,
             });
         }
     }
@@ -121,15 +123,21 @@ export class GibworkService {
         return rawList.map((t) => {
             const decimals = t.asset?.decimals ?? 6;
             let displayAmount = '0';
-            if (t.minSubmissionAmount) {
-                displayAmount = String(t.minSubmissionAmount);
+            // 1. Check direct USD bounty metric if provided by Gibwork API
+            if (t.health?.metrics?.bountyUsd !== undefined && t.health.metrics.bountyUsd > 0) {
+                displayAmount = String(t.health.metrics.bountyUsd);
             }
             else if (t.asset?.amount) {
+                // 2. Compute total escrowed pool from asset base units
                 const rawNum = Number(t.asset.amount);
-                displayAmount = (rawNum / Math.pow(10, decimals)).toFixed(2);
+                const calculated = rawNum / Math.pow(10, decimals);
+                displayAmount = calculated % 1 === 0 ? calculated.toString() : calculated.toFixed(2);
             }
             else if (t.payment?.amount) {
                 displayAmount = String(t.payment.amount);
+            }
+            else if (t.minSubmissionAmount) {
+                displayAmount = String(t.minSubmissionAmount);
             }
             return {
                 taskId: t.id || t.taskId,
@@ -138,7 +146,8 @@ export class GibworkService {
                 rewardAmount: displayAmount,
                 tokenMint: t.asset?.mintAddress || t.payment?.mintAddress || '',
                 tokenSymbol: t.asset?.symbol || 'USDC',
-                minSubmissionAmount: t.minSubmissionAmount,
+                minSubmissionAmount: t.minSubmissionAmount ? String(t.minSubmissionAmount) : undefined,
+                perSubmissionAmount: t.minSubmissionAmount ? String(t.minSubmissionAmount) : undefined,
                 tags: t.tags || [],
                 createdAt: t.createdAt,
                 deadline: t.deadline,

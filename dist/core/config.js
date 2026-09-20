@@ -37,7 +37,7 @@ export function loadConfig(dir = process.cwd()) {
     if (!fs.existsSync(configPath)) {
         return GitBountyConfigSchema.parse({
             version: '1',
-            network: process.env.GIBWORK_NETWORK || 'stage',
+            network: process.env.GIBWORK_NETWORK || 'production',
             bounties: {},
         });
     }
@@ -50,7 +50,7 @@ export function loadConfig(dir = process.cwd()) {
         // If parsing fails, return default with warning
         return GitBountyConfigSchema.parse({
             version: '1',
-            network: 'stage',
+            network: 'production',
             bounties: {},
         });
     }

@@ -2,6 +2,7 @@ export interface BrowseOptions {
     minReward?: string;
     tag?: string;
     token?: string;
+    network?: 'stage' | 'production';
     page?: string;
     limit?: string;
     json?: boolean;

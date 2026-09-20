@@ -8,6 +8,7 @@ export interface BrowseOptions {
   minReward?: string;
   tag?: string;
   token?: string;
+  network?: 'stage' | 'production';
   page?: string;
   limit?: string;
   json?: boolean;
@@ -15,12 +16,15 @@ export interface BrowseOptions {
 
 export async function runBrowse(opts: BrowseOptions = {}) {
   const config = loadConfig();
-  const spinner = ora(`Fetching active bounties from Gibwork (${config.network.toUpperCase()})...`).start();
+  const targetNetwork = opts.network || config.network || 'production';
+  const isProd = targetNetwork === 'production';
+
+  const spinner = ora(`Fetching active bounties from Gibwork (${targetNetwork.toUpperCase()})...`).start();
 
   try {
-    const gibwork = new GibworkService(undefined, config.network === 'production');
+    const gibwork = new GibworkService(undefined, isProd);
     const page = opts.page ? parseInt(opts.page, 10) : 1;
-    const limit = opts.limit ? parseInt(opts.limit, 10) : 15;
+    const limit = opts.limit ? parseInt(opts.limit, 10) : 25;
 
     let tasks = await gibwork.listAvailableTasks(page, limit);
 
@@ -52,27 +56,29 @@ export async function runBrowse(opts: BrowseOptions = {}) {
       return;
     }
 
-    console.log(chalk.bold.hex('#14F195')(`\n⚡ Available Gibwork Bounties (${tasks.length} found)\n`));
+    console.log(chalk.bold.hex('#14F195')(`\n⚡ Available Gibwork Bounties (${tasks.length} found on ${targetNetwork.toUpperCase()})\n`));
 
     const table = new Table({
       head: [
         chalk.cyan('Task ID'),
         chalk.cyan('Title'),
-        chalk.cyan('Reward'),
+        chalk.cyan('Bounty Pool'),
         chalk.cyan('Token'),
+        chalk.cyan('Per Sub'),
         chalk.cyan('Tags'),
       ],
-      colWidths: [38, 35, 12, 10, 20],
+      colWidths: [38, 32, 14, 10, 10, 18],
       wordWrap: true,
     });
 
     for (const t of tasks) {
       table.push([
         chalk.gray(t.taskId),
-        chalk.white.bold(t.title.length > 32 ? t.title.slice(0, 30) + '...' : t.title),
+        chalk.white.bold(t.title.length > 28 ? t.title.slice(0, 26) + '...' : t.title),
         chalk.green.bold(t.rewardAmount),
         chalk.yellow(t.tokenSymbol),
-        chalk.magenta(t.tags.slice(0, 3).join(', ')),
+        chalk.cyan(t.perSubmissionAmount || '-'),
+        chalk.magenta(t.tags.slice(0, 2).join(', ')),
       ]);
     }
 

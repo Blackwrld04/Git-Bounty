@@ -20,6 +20,7 @@ export interface BountyTaskSummary {
   tokenMint: string;
   tokenSymbol: string;
   minSubmissionAmount?: string;
+  perSubmissionAmount?: string;
   tags: string[];
   createdAt?: string;
   deadline?: string;
