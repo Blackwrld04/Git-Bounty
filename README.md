@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">⚡ git-bounty</h1>
+  <h1 align="center">⚡ Git-bounty</h1>
   <p align="center">
     <strong>The Native Git CLI Extension, GitHub Actions CI/CD Engine, and Terminal Dashboard for the Gibwork Solana Bounty Protocol</strong>
   </p>
@@ -22,7 +22,7 @@
 
 ---
 
-## 🌟 Hackathon Project Summary
+## Hackathon Project Summary
 
 ### 1. Bounty Use Case
 **`git-bounty`** is a developer-first toolchain that turns native Git into an on-chain Gibwork client and integrates Gibwork directly into GitHub CI/CD pipelines. 
@@ -52,23 +52,23 @@ Existing bounty platforms suffer from severe context switching: developers write
 
 ---
 
-## 🏗️ Architecture & Workflow
+## Architecture & Workflow
 
 ```mermaid
 flowchart TD
-    subgraph MaintainerFlow["🛠️ Project Maintainer / Creator"]
+    subgraph MaintainerFlow[" Project Maintainer / Creator"]
         Init["1. git bounty init<br/>(Scaffold .gitbounty.json)"] --> Post["2. git bounty post #42<br/>(Fund Solana Escrow via @gibwork/sdk)"]
         Post --> GitHubLabel["GitHub Issue Labeled & Commented<br/>(Sticky receipt + claim instructions)"]
     end
 
-    subgraph ContributorFlow["💻 Contributor / Bounty Hunter"]
+    subgraph ContributorFlow[" Contributor / Bounty Hunter"]
         Browse["3. git bounty browse / show<br/>(Discover & inspect task rules)"] --> Claim["4. git bounty claim &lt;taskId&gt;<br/>(Cut git branch & scaffold .bounty/SPEC.md)"]
         Claim --> Code["5. Implement fix in branch"]
         Code --> Test["6. git bounty test<br/>(Execute local verification test suite)"]
         Test --> Submit["7. git bounty submit<br/>(Package PoW bundle & sign 0.15 USDC fee)"]
     end
 
-    subgraph SettlementFlow["🚀 Review & Automated CI/CD Settlement"]
+    subgraph SettlementFlow[" Review & Automated CI/CD Settlement"]
         PR["8. Contributor opens GitHub PR"]
         Submit --> PR
         PR --> CI["9. GitHub Actions CI<br/>(Auto-runs git bounty test on PR)"]
@@ -80,7 +80,7 @@ flowchart TD
 
 ---
 
-## 📦 Installation & Prerequisites
+## Installation & Prerequisites
 
 ### Prerequisites
 * **Node.js**: `>= 22.0.0`
@@ -113,7 +113,7 @@ git-bounty --help
 
 ---
 
-## ⚙️ Configuration & Environment Variables
+## Configuration & Environment Variables
 
 ### 1. Environment Variables
 
@@ -141,7 +141,7 @@ Run `git bounty init` to generate the project manifest:
 
 ---
 
-## 🛠️ Complete Command Reference & Sample I/O
+## Complete Command Reference & Sample I/O
 
 ### 1. `git bounty init`
 * **Role**: Maintainer
@@ -194,7 +194,7 @@ git bounty post 42 --reward 50 --token USDC --tags "bug,typescript"
 
 ╭─────────────────────────────────────────────────────────╮
 │                                                         │
-│   🎯 Bounty Created & Funded On-Chain!                  │
+│  Bounty Created & Funded On-Chain!                  │
 │                                                         │
 │   • Issue:         #42 (Fix memory leak in websocket)   │
 │   • Escrow Pool:   50 USDC                              │
@@ -268,7 +268,7 @@ git bounty show cc14599e-ed38-4bdc-b55a-09cd8f8c1010
 │                                                         │
 ╰─────────────────────────────────────────────────────────╯
 
-📋 Task Description & Instructions:
+Task Description & Instructions:
 ────────────────────────────────────────────────────────────
 **Upto 30 Winners win upto $300 USDC**
 
@@ -313,7 +313,7 @@ git bounty claim cc14599e-ed38-4bdc-b55a-09cd8f8c1010
 
 ╭──────────────────────────────────────────────────────────╮
 │                                                          │
-│   🎯 Bounty Claimed Successfully!                        │
+│   Bounty Claimed Successfully!                        │
 │   • Title:        Refer. Share. Win upto $300 USDC       │
 │   • Task ID:      cc14599e-ed38-4bdc-b55a-09cd8f8c1010   │
 │   • Bounty Pool:  120 CREDITS                            │
@@ -417,7 +417,7 @@ git bounty dashboard
 
 ---
 
-## 📦 Exported Deliverables & Generated Artifacts
+## Exported Deliverables & Generated Artifacts
 
 `git-bounty` automatically generates standardized artifacts during the development lifecycle:
 
@@ -425,7 +425,7 @@ git bounty dashboard
 Generated upon running `git bounty claim`:
 ```markdown
 # ⚡ Bounty Specification: Fix edge case in Solana deserializer
-## 📊 Overview
+## Overview
 * **Task ID**: `cc14599e-ed38-4bdc-b55a-09cd8f8c1010`
 * **Bounty Pool**: **120 CREDITS**
 * **Payout Per Approved Submission**: 10 CREDITS
@@ -435,11 +435,11 @@ Generated upon running `git bounty claim`:
 * **Status**: In Progress
 
 ---
-## 📝 Description & Instructions
+## Description & Instructions
 Implement robust boundary checks when deserializing variable length byte arrays...
 
 ---
-## ✅ Deliverables Checklist
+## Deliverables Checklist
 - [ ] Review instructions and criteria above.
 - [ ] Implement required code changes or deliverables.
 - [ ] Run tests: `git bounty test` (Must pass with 0 errors).
@@ -472,7 +472,7 @@ Packaged upon running `git bounty submit`:
 
 ---
 
-## 🤖 GitHub Actions CI/CD Engine
+## GitHub Actions CI/CD Engine
 
 Included with `git-bounty` is a production-ready reusable GitHub Action ([`action.yml`](action.yml)) and workflow ([`.github/workflows/bounty-ci.yml`](.github/workflows/bounty-ci.yml)):
 
@@ -516,11 +516,11 @@ jobs:
 
 ---
 
-## 📸 Screenshots & Terminal Demos
+## Screenshots & Terminal Demos
 
 ### 1. Interactive Terminal User Interface (`git bounty dashboard`)
 ```
-┌─⚡ GIBWORK ACTIVE BOUNTIES (PRODUCTION) ───────────────┬─📋 TASK SPECIFICATION & REQUIREMENTS ────┐
+┌─⚡ GIBWORK ACTIVE BOUNTIES (PRODUCTION) ───────────────┬─ TASK SPECIFICATION & REQUIREMENTS ────┐
 │ ▶ Refer. Share. Win upto $300 USDC (120 CREDITS)      │ Title: Refer. Share. Win upto $300 USDC  │
 │   FLAUNT YOUR VERYCHAT STREAKS     (5 USDC)           │ Task ID: cc14599e-ed38-4bdc-b55a...      │
 │   Drop Your Take on BASIS          (100 USDC)         │ Reward Pool: 120 CREDITS (~$300)         │
@@ -536,7 +536,7 @@ jobs:
 
 ---
 
-## 🎥 Screen Recording & Demo Video
+## Screen Recording & Demo Video
 
 * **Video Walkthrough URL**: [https://youtu.be/git-bounty-demo](https://github.com/Blackwrld04/Git-Bounty#) *(Link to your demo video)*
 * **Demo Video Structure**:
@@ -550,7 +550,7 @@ jobs:
 
 ---
 
-## 🧪 Automated Testing & Verification
+## Automated Testing & Verification
 
 The test suite validates Git operations, Proof-of-Work bundle generation, and live Gibwork API integration:
 
@@ -579,18 +579,6 @@ Duration    1.82s
 
 ---
 
-## 📋 Hackathon Compliance Checklist
-
-| Requirement from Brief | How `git-bounty` Meets It | Status |
-| :--- | :--- | :---: |
-| **Uses Gibwork SDK, CLI, or MCP** | Deeply integrates `@gibwork/sdk` for escrow creation, submission, and settlement. | ✅ Pass |
-| **New Use Case (not an existing demo)** | World's first native Git CLI extension & GitHub Actions CI engine for Gibwork. | ✅ Pass |
-| **Non-Web-App / No Browser Required** | 100% Terminal CLI, Ink/React TUI, and GitHub Actions CI/CD. | ✅ Pass |
-| **Solves Real Developer Workflow** | Bridges Git commits, branches, PRs, and test suites to on-chain bounties. | ✅ Pass |
-| **Clear Setup & Instructions** | Step-by-step installation, environment variables, and sample I/O included. | ✅ Pass |
-| **Demo Video & Screenshots** | Full terminal walkthrough, TUI mockup, and structured video guide provided. | ✅ Pass |
-| **Exported Deliverables** | Auto-generates `.bounty/SPEC.md`, PoW bundles, and `.gitbounty.json`. | ✅ Pass |
-| **Automated Tests Included** | 10/10 Vitest unit and integration tests passing. | ✅ Pass |
 
 ---
 
